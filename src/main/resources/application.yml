@@ -1,0 +1,22 @@
+server:
+  port: 8009
+# 配置mysql地址连接属性等
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/messageboard?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 98765731
+
+#mybatis:
+#  #标注待解析的mapper的xml文件位置
+#  mapper-locations: classpath:mapper/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.springboot.entity
+  configuration:
+    map-underscore-to-camel-case: true
