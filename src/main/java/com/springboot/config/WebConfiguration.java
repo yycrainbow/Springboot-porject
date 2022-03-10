@@ -1,4 +1,4 @@
-package com.springboot.config;
+//package com.springboot.config;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -32,55 +32,56 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Configuration
-public class WebConfiguration implements WebMvcConfigurer {
-
-    private final Logger logger = LoggerFactory.getLogger(WebConfiguration.class);
-//    @Value("${springboot.active}")
-    private String env;//当前激活的配置文件
-
-    private TokenInterceptor tokenInterceptor;
-
-    //构造方法
-    public WebConfiguration(TokenInterceptor tokenInterceptor){
-        this.tokenInterceptor = tokenInterceptor;
-    }
-
-    @Override
-    public void configureAsyncSupport(AsyncSupportConfigurer configurer){
-        configurer.setTaskExecutor(new ConcurrentTaskExecutor(Executors.newFixedThreadPool(3)));
-        configurer.setDefaultTimeout(30000);
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        List<String> excludePath = new ArrayList<>();
-        //排除拦截，除了注册登录(此时还没token)，其他都拦截
-        excludePath.add("/register");  //登录
-        excludePath.add("/getOrderList");
-        excludePath.add("/login");     //注册
-        excludePath.add("/static/**");  //静态资源
-        excludePath.add("/assets/**");  //静态资源
-
-        registry.addInterceptor(tokenInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns(excludePath);
-        WebMvcConfigurer.super.addInterceptors(registry);
-    }
-
-
-    //使用阿里 FastJson 作为JSON MessageConverter
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        FastJsonHttpMessageConverter4 converter = new FastJsonHttpMessageConverter4();
-        FastJsonConfig config = new FastJsonConfig();
-        config.setSerializerFeatures(SerializerFeature.WriteMapNullValue,//保留空的字段
-                SerializerFeature.WriteNullStringAsEmpty,//String null -> ""
-                SerializerFeature.WriteNullNumberAsZero);//Number null -> 0
-        converter.setFastJsonConfig(config);
-        converter.setDefaultCharset(Charset.forName("UTF-8"));
-        converters.add(converter);
-    }
+//@Configuration
+//public class WebConfiguration implements WebMvcConfigurer {
+//
+//    private final Logger logger = LoggerFactory.getLogger(WebConfiguration.class);
+////    @Value("${springboot.active}")
+//    private String env;//当前激活的配置文件
+//
+//    private TokenInterceptor tokenInterceptor;
+//
+//    //构造方法
+//    public WebConfiguration(TokenInterceptor tokenInterceptor){
+//        this.tokenInterceptor = tokenInterceptor;
+//    }
+//
+//    @Override
+//    public void configureAsyncSupport(AsyncSupportConfigurer configurer){
+//        configurer.setTaskExecutor(new ConcurrentTaskExecutor(Executors.newFixedThreadPool(3)));
+//        configurer.setDefaultTimeout(30000);
+//    }
+//
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        List<String> excludePath = new ArrayList<>();
+//        //排除拦截，除了注册登录(此时还没token)，其他都拦截
+//        excludePath.add("/register");  //登录
+//        excludePath.add("/getOrderList");
+//        excludePath.add("/login");     //注册
+//        excludePath.add("/static/**");  //静态资源
+//        excludePath.add("/assets/**");  //静态资源
+//        excludePath.add("/getEmployeeList");
+//
+//        registry.addInterceptor(tokenInterceptor)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns(excludePath);
+//        WebMvcConfigurer.super.addInterceptors(registry);
+//    }
+//
+//
+//    //使用阿里 FastJson 作为JSON MessageConverter
+//    @Override
+//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        FastJsonHttpMessageConverter4 converter = new FastJsonHttpMessageConverter4();
+//        FastJsonConfig config = new FastJsonConfig();
+//        config.setSerializerFeatures(SerializerFeature.WriteMapNullValue,//保留空的字段
+//                SerializerFeature.WriteNullStringAsEmpty,//String null -> ""
+//                SerializerFeature.WriteNullNumberAsZero);//Number null -> 0
+//        converter.setFastJsonConfig(config);
+//        converter.setDefaultCharset(Charset.forName("UTF-8"));
+//        converters.add(converter);
+//    }
 
 
     //统一异常处理
@@ -117,4 +118,4 @@ public class WebConfiguration implements WebMvcConfigurer {
         });
     }*/
 
-}
+//}
